@@ -16,12 +16,13 @@ Synopsis
 .. code-block::
 
     gdal_rasterize [-b band]* [-i] [-at]
+        [-oo NAME=VALUE]*
         {[-burn value]* | [-a attribute_name] | [-3d]} [-add]
-        [-l layername]* [-where expression] [-sql select_statement]
+        [-l layername]* [-where expression] [-sql select_statement|@filename]
         [-dialect dialect] [-of format] [-a_srs srs_def] [-to NAME=VALUE]*
         [-co "NAME=VALUE"]* [-a_nodata value] [-init value]*
         [-te xmin ymin xmax ymax] [-tr xres yres] [-tap] [-ts width height]
-        [-ot {Byte/Int16/UInt16/UInt32/Int32/UInt64/Int64/Float32/Float64/
+        [-ot {Byte/Int8/Int16/UInt16/UInt32/Int32/UInt64/Int64/Float32/Float64/
                 CInt16/CInt32/CFloat32/CFloat64}]
         [-optim {[AUTO]/VECTOR/RASTER}] [-q]
         <src_datasource> <dst_filename>
@@ -94,6 +95,8 @@ raster data is only supported since GDAL 2.1.0.
 
     An SQL statement to be evaluated against the datasource to produce a
     virtual layer of features to be burned in.
+    Starting with GDAL 3.7, the ``@filename`` syntax can be used to indicate
+    that the content is in the pointed filename.
 
 .. option:: -dialect <dialect>
 
@@ -172,6 +175,12 @@ raster data is only supported since GDAL 2.1.0.
 
     .. versionadded:: 2.3
 
+.. option:: -oo <NAME=VALUE>
+
+    .. versionadded:: 3.7
+
+    Source dataset open option (format specific)
+
 .. option:: -q
 
     Suppress progress monitor and other non-error output.
@@ -183,9 +192,7 @@ raster data is only supported since GDAL 2.1.0.
 .. option:: <dst_filename>
 
     The GDAL supported output file.  Must support update mode access.
-    This file will be created (or overwritten if it already exists):option:`-of`,
-    :option:`-a_nodata`, :option:`-init`, :option:`-a_srs`, :option:`-co`, :option:`-te`,
-    :option:`-tr`, :option:`-tap`, :option:`-ts`, or :option:`-ot` options are used.
+    This file will be created (or overwritten if it already exists).
 
 The program create a new target raster image when any of the :option:`-of`,
 :option:`-a_nodata`, :option:`-init`, :option:`-a_srs`, :option:`-co`, :option:`-te`,

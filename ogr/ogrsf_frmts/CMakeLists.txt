@@ -23,7 +23,6 @@ ogr_default_driver(vrt "VRT - Virtual Format")
 # Caution: if modifying AVC declaration here, also modify it in gdal.cmake
 ogr_optional_driver(avc AVC)
 
-ogr_optional_driver(sdts SDTS) # depends ISO8211
 ogr_optional_driver(gml GML) # when not found both EXPAT/XercesC, return error in driver, referenced by WCS
 
 # ######################################################################################################################
@@ -50,24 +49,27 @@ ogr_optional_driver(mapml MapML)
 
 # ######################################################################################################################
 #
+
+ogr_dependent_driver(sdts SDTS "GDAL_ENABLE_DRIVER_SDTS")
+
 # XML drivers
 ogr_dependent_driver(gpx "GPX - GPS Exchange Format" "GDAL_USE_EXPAT")
 ogr_dependent_driver(gmlas GMLAS "GDAL_USE_XERCESC;OGR_ENABLE_DRIVER_PGDUMP")
 ogr_dependent_driver(svg "Scalable Vector Graphics" "GDAL_USE_EXPAT")
-ogr_dependent_driver(csw CSW "GDAL_USE_CURL")
+ogr_dependent_driver(csw CSW "GDAL_USE_CURL;OGR_ENABLE_DRIVER_GML")
 ogr_dependent_driver(dwg DWG "GDAL_USE_TEIGHA")
 ogr_dependent_driver(filegdb FileGDB "GDAL_USE_FILEGDB")
 ogr_dependent_driver(libkml LibKML "GDAL_USE_LIBKML")
-ogr_dependent_driver(nas "NAS/ALKIS" "GDAL_USE_XERCESC")
+ogr_dependent_driver(nas "NAS/ALKIS" "GDAL_USE_XERCESC;OGR_ENABLE_DRIVER_GML")
 ogr_dependent_driver(plscenes PLSCENES "GDAL_USE_CURL")
 ogr_dependent_driver(sosi "SOSI:Systematic Organization of Spatial Information" "GDAL_USE_FYBA")
-ogr_dependent_driver(wfs "OGC WFS service" "GDAL_USE_CURL")
+ogr_dependent_driver(wfs "OGC WFS service" "GDAL_USE_CURL;OGR_ENABLE_DRIVER_GML")
 ogr_dependent_driver(ngw "NextGIS Web" "GDAL_USE_CURL")
 ogr_dependent_driver(elastic "ElasticSearch" "GDAL_USE_CURL")
 
-ogr_optional_driver(idrisi IDRISI)
+ogr_dependent_driver(idrisi IDRISI "GDAL_ENABLE_DRIVER_IDRISI")
 
-ogr_dependent_driver(pds "Planetary Data Systems TABLE" "GDAL_ENABLE_DRIVER_PDS")
+ogr_dependent_driver(pds "Planetary Data Systems TABLE" "GDAL_ENABLE_DRIVER_PDS;OGR_ENABLE_DRIVER_GML")
 
 # Caution: if modifying SQLite declaration here, also modify it in gdal.cmake
 ogr_dependent_driver(sqlite "SQLite3 / Spatialite RDBMS" "GDAL_USE_SQLITE3")
@@ -75,7 +77,9 @@ ogr_dependent_driver(sqlite "SQLite3 / Spatialite RDBMS" "GDAL_USE_SQLITE3")
 ogr_dependent_driver(gpkg "GeoPackage" "GDAL_USE_SQLITE3;OGR_ENABLE_DRIVER_SQLITE")
 ogr_dependent_driver(osm "OpenStreetMap XML and PBF" "GDAL_USE_SQLITE3;OGR_ENABLE_DRIVER_SQLITE")
 ogr_dependent_driver(vfk "Czech Cadastral Exchange Data Format" "GDAL_USE_SQLITE3")
-ogr_dependent_driver(mvt "MVT" "GDAL_USE_SQLITE3;OGR_ENABLE_DRIVER_OSM")
+# Caution: if modifying MVT declaration here, also modify it in gdal.cmake
+ogr_dependent_driver(mvt "MVT" "GDAL_USE_SQLITE3")
+ogr_dependent_driver(pmtiles PMTiles "OGR_ENABLE_DRIVER_MVT")
 
 # ODBC/POSTGRES/MYSQL
 ogr_dependent_driver(amigocloud AMIGOCLOUD "GDAL_USE_CURL;OGR_ENABLE_DRIVER_PGDUMP")
@@ -93,6 +97,8 @@ ogr_dependent_driver(mongodbv3 "MongoDB V3" "GDAL_USE_MONGOCXX")
 ogr_dependent_driver(cad "OpenCAD" "GDAL_USE_OPENCAD OR GDAL_USE_OPENCAD_INTERNAL")
 ogr_dependent_driver(parquet "Parquet" "GDAL_USE_PARQUET")
 ogr_dependent_driver(arrow "Arrow" "GDAL_USE_ARROW")
+
+ogr_dependent_driver(gtfs "GTFS" "OGR_ENABLE_DRIVER_CSV")
 
 # ######################################################################################################################
 # proprietary libraries

@@ -48,13 +48,14 @@ Vector drivers
    geojson
    geojsonseq
    georss
-   gmlas
    gml
+   gmlas
    gmt
    gpkg
    gpsbabel
    gpx
    grass
+   gtfs
    hana
    idb
    idrisi
@@ -88,6 +89,7 @@ Vector drivers
    pgeo
    pg
    plscenes
+   pmtiles
    s57
    sdts
    selafin
@@ -97,6 +99,7 @@ Vector drivers
    svg
    sxf
    tiger
+   tiledb
    topojson
    vdv
    vfk
